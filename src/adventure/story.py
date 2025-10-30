@@ -4,7 +4,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.panel import Panel
 
-default_message = "You stand still, unsure what to do. The forest swallows you."
+default_message = "[red]You stand still, unsure what to do. The forest swallows you.[/red]"
 
 def step(choice: str, events):
     random_event = random.choice(events)
@@ -14,7 +14,7 @@ def step(choice: str, events):
     elif choice == "right":
         return right_path(random_event)
     else:
-        return "[red]You stand still, unsure what to do. The forest swallows you.[/red]"
+        return default_message
 
 def left_path(event):
     return "[cyan]You walk left. [/cyan]" + event
