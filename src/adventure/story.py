@@ -1,10 +1,9 @@
 from adventure.utils import read_events_from_file
 import random
 from rich import print
-from rich.prompt import Prompt
-from rich.panel import Panel
+from rich.console import Console
 
-default_message = "[red]You stand still, unsure what to do. The forest swallows you.[/red]"
+default_message = "[red][bold]You stand still, unsure what to do. The forest swallows you.[/bold][/red]"
 
 def step(choice: str, events):
     random_event = random.choice(events)
@@ -17,25 +16,22 @@ def step(choice: str, events):
         return default_message
 
 def left_path(event):
-    return "[cyan]You walk left. [/cyan]" + event
+    return "[cyan][bold]You walk left. [/cyan][/bold]" + event
 
 def right_path(event):
-    return "[magenta]You walk right. [/magenta]" + event
+    return "[magenta][bold]You walk right.[/bold] [/magenta]" + event
 
 if __name__ == "__main__":
+    console = Console()
     events = read_events_from_file('events.txt')
 
-    print("[green]You wake up in a dark forest. You can go left or right.[/green]")
+    print("[green][bold]You wake up in a dark forest. You can go left or right.[/green][/bold]")
     
     while True:
-        # Show choices as suggestion text instead of validation
-        choice = Prompt.ask(
-            "[blue][bold]Which direction do you choose? (left/right/exit)[/bold][/blue]"
-        ).strip().lower()
-        
+        choice = console.input("[bold]Which direction do you choose?[/bold] (left/right/exit): ")
+        choice = choice.strip().lower()
         if choice == 'exit':
-            print("[bold cyan] Goodbye! [/bold cyan]")
+            print("[cyan][bold]Goodbye![/bold][/cyan]")
             break
         
-        result = step(choice, events)
-        print(Panel(result, style="bold"))
+        print(step(choice, events))
