@@ -34,6 +34,7 @@ if __name__ == "__main__":
         ).strip().lower()
         
         if choice == 'exit':
+            print("[bold cyan] Goodbye! [/bold cyan]")
             break
         
         result = step(choice, events)
